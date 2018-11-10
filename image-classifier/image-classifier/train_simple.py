@@ -3,6 +3,7 @@
 import os
 import argparse
 from datetime import datetime as df
+import pdb
 
 import tensorflow as tf
 from tensorflow.keras import models, layers, optimizers
@@ -13,12 +14,12 @@ from parameters import initialise_hyper_params
 
 def run(params):
     trainset_path = params.trainset_path.replace("gs://bigdata-allanbatista-com-br/", "")
-    trainset = dataset.create_dataset_form_pattern(params.bucket_name, trainset_path, batch_size=1)
+    trainset = dataset.create_dataset_form_pattern(params.bucket_name, trainset_path, batch_size=10)
     # testset  = dataset.create_dataset_form_pattern(params.bucket_name, params.testset_path)
 
     # # Create a Model
     model = models.Sequential()
-    model.add(layers.Dense(256, activation='relu', input_dim=8 * 8 * 512))
+    model.add(layers.Dense(256, activation='relu', input_dim=256 * 256 * 3))
     model.add(layers.Dropout(0.5))  # minimize overfitting (deactivates half of the neurons)
     model.add(layers.Dense(17, activation='softmax'))
 
@@ -28,7 +29,7 @@ def run(params):
 
     metrics = model.fit(trainset,
                         epochs=20,
-                        steps_per_epoch=total // batch_size)
+                        steps_per_epoch=753 // 20)
 
 
 def main():

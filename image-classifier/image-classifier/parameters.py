@@ -46,11 +46,28 @@ class Arguments():
     def job_dir(self):
         return self.params.job_dir
 
+    @property
+    def trainset_path(self):
+        return self.params.trainset_path
+
+    @property
+    def testnset_path(self):
+        return self.params.testset_path
+
+    @property
+    def bucket_name(self):
+        return self.params.bucket_name
+
 
 def initialise_hyper_params(args_parser):
     args_parser.add_argument(
         '--job-dir',
         help='jobs staging path',
+        required=True
+    )
+    args_parser.add_argument(
+        '--bucket-name',
+        help='google cloud storage bucket name',
         required=True
     )
     args_parser.add_argument(
@@ -79,12 +96,12 @@ def initialise_hyper_params(args_parser):
     args_parser.add_argument(
         '--trainset-path',
         help='GCS pattern or local paths to training data',
-        default="trainset/"
+        required=True
     )
     args_parser.add_argument(
         '--testset-path',
         help='GCS pattern or local paths to evaluation data',
-        default="testset/"
+        required=True
     )
     args_parser.add_argument(
         '--metadata-filename',
