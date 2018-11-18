@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bigdata-217213",
+  "private_key_id": "55b1dfc31b66956a333567349ba775aa105dec8b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCO7TlO3hwp+WZ8\n2l3WpwR3uvTVJCaobiazuOfk3zEaAyDeqiHXJYIcvYjvXQdlpIMDmR28T+GWGypr\nbK1ZN+8mEaLDDJbgbKlyjI+FnyScmY/gPj9O+UkVjCBlHWr4F6xLBkyDwGCwC9dF\nhyWcvm7rvRI1T3eLCxhC4HHCDV3vA7FzK08A5K00n7UZT5atjn3MJHkrft04v6Pp\nCi0rWbf/YbI39p9tmU7AEQXtMnO3IyS7rk64niYB8T/YbnWm9CO6U5hYcHgvRrdS\nvYGrIFZXaOmZMZvZ58/54hSN8kMZ+1QokuQHfrwWYHGxm+Hoybkm6RZCBc4edYdG\nnc5aqNcfAgMBAAECggEAKZeYHz7chEx7CidDuoT09GC4AdSY2VfgtFlBRmW69L5n\nUNTCr0jPgcyYLkvsrKQAqknjENtQIu353LQOCBISaookSs19lIaakuabl3912IqJ\nh3Cl3LYHkhkqjjJO4C6HaXfGSWrw2BpCBY4sIF58ieaGB3R+LbzHTSLih9168eQ6\naWm5AVBNFPN+pu9Iyz9+a9DhRUfrNcBa3OcYjD+LuIwP3ImMehxpKsk8wz7WsBfa\nP/D3ccinfIThpK4/UU4w7G3QVbJaLqmwdz57Qa7x7H5p1e0ZSVo/Gu8dCop/Ua1P\nbhcxx+ZJRy6Jh3y60CXSrK7MvWtM7en2CJaA/7WmxQKBgQC/xkJdJpIgpS9F9sh0\nAyJpMRVOj9IErzDAQHw1/3LmKsCWHGpVQ9GxP9A36rNq4FpK2tXEyHprBqSTuS49\nvGc1Xxw7QqY7DNRbQcpDgcOElH+PKHlBHSTWB27PLU64cmlAtIokAl2F139ZSz6f\nR8qU1qjg/3QN7zWeOhsU0mSnbQKBgQC+ywJ04fMNIzGXl9/D+m1YwfgOqmXZz2zF\n1CPgSzW92VSSdVfwa6Kk40bzrp7EjmZLJwoXjJQedVuw0cDu6Ck77xUtj2vqcpdr\nVgGh6C1Mx2I2CfCWhKHXgevAQgGzSL9ibFBueRdzbBIkB9yYW4zP+ApxTIdes98+\nfJf3OqGlOwKBgGHyIHLzAC8sLrjNEhQuhaS0LO2zBtDdqUiHpujtTwG/VB1W5fgm\nazLcJLxqYrhzXapdmlCnE98VxXitW7CsSQo5SXH62GvQYaU6NNPFstZEAeJcCZH4\nEJg/s5icy1fpF1i03NkHXDy/k4tHovQ29oCOIjLIRb3YLsphYvN/gWkBAoGAAdHL\nzzOMbtakFW8EWkkcG9mVtQYY/I/G2MgiI3R0KcBV1yO5V/iez3W/anmC2BsHjLXt\nmbXkf7ncyv3lGiIqqoCoMgwJGm5HVWW3lESzkeTg4eUMX1MafASoK+g1PfF2qcig\np70N5TLlpWRRzT4qRJ139Aanz9ZlTaJAjMIJYpsCgYBZlar+bx7ZWfGkukT8vXyN\nDrFBsEWDEsBThYYYVFYbaO6J+AdIhhY0Ymxmca3qHFr6dfc5sSa2JgDUEiIELZPe\nJ3Em3Gqw8JXRBX24p3A03t5JrozipesyvKqMSb2qAV+9dR0FwJ0X417ShbO3B5CB\n9bqMgMqhqNqWw31uFpDdgw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "jupyter@bigdata-217213.iam.gserviceaccount.com",
+  "client_id": "115758922728438051255",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/jupyter%40bigdata-217213.iam.gserviceaccount.com"
+}
