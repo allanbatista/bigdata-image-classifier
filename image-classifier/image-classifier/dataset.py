@@ -16,7 +16,7 @@ def _parse_example(serialized_example):
     parsed = tf.parse_single_example(serialized_example, features=feature_set)
 
     features = parsed['features']
-    features = tf.decode_raw(features, tf.uint8)
+    features = tf.decode_raw(features, tf.float32)
 
     return features, parsed['label']
 
@@ -38,7 +38,6 @@ def blobs_names_with_bucket(bucket_name, pattern):
 
 
 def create_dataset_form_pattern(bucket_name, pattern, batch_size=100, epochs=1):
-    print(blobs_names_with_bucket(bucket_name, pattern))
     return create_dataset(blobs_names_with_bucket(bucket_name, pattern), batch_size, epochs)
 
 

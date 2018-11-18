@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import json
 from datetime import datetime as dt
 
 
@@ -48,15 +49,51 @@ class Arguments():
 
     @property
     def trainset_path(self):
-        return self.params.trainset_path
+        return (self.base_path + self.params.trainset_path).replace('gs://bigdata-allanbatista-com-br/', '')
 
     @property
-    def testnset_path(self):
-        return self.params.testset_path
+    def testset_path(self):
+        return (self.base_path + self.params.testset_path).replace('gs://bigdata-allanbatista-com-br/', '')
 
     @property
     def bucket_name(self):
         return self.params.bucket_name
+
+    @property
+    def loss(self):
+        return self.params.loss
+
+    @property
+    def early_stopping_monitor(self):
+        return self.params.early_stopping_monitor
+
+    @property
+    def early_stopping_delta(self):
+        return self.params.early_stopping_delta
+
+    @property
+    def early_stopping_verbose(self):
+        return self.params.early_stopping_verbose
+
+    @property
+    def early_stopping_patience(self):
+        return self.params.early_stopping_patience
+
+    @property
+    def optimizer(self):
+        return self.params.optimizer
+
+    @property
+    def optimizer_params(self):
+        return json.loads(self.params.optimizer_params)
+
+    @property
+    def layers(self):
+        return json.loads(self.params.layers)
+
+    @property
+    def metrics(self):
+        return self.params.metrics.split(",")
 
 
 def initialise_hyper_params(args_parser):
@@ -73,7 +110,7 @@ def initialise_hyper_params(args_parser):
     args_parser.add_argument(
         '--batch-size',
         help='batch size',
-        default=100,
+        default=16,
         type=int
     )
     args_parser.add_argument(
@@ -96,12 +133,12 @@ def initialise_hyper_params(args_parser):
     args_parser.add_argument(
         '--trainset-path',
         help='GCS pattern or local paths to training data',
-        required=True
+        default='trainset/'
     )
     args_parser.add_argument(
         '--testset-path',
         help='GCS pattern or local paths to evaluation data',
-        required=True
+        default='testset'
     )
     args_parser.add_argument(
         '--metadata-filename',
@@ -119,6 +156,59 @@ def initialise_hyper_params(args_parser):
             'WARN'
         ],
         default='DEBUG',
+    )
+
+    args_parser.add_argument(
+        '--loss',
+        default='categorical_crossentropy',
+        help='To see loss function compatible see https://keras.io/losses/'
+    )
+
+    args_parser.add_argument(
+        '--early-stopping-monitor',
+        default='loss'
+    )
+
+    args_parser.add_argument(
+        '--early-stopping-delta',
+        default=0.01,
+        type=float
+    )
+
+    args_parser.add_argument(
+        '--early-stopping-verbose',
+        default=1,
+        type=int
+    )
+
+    args_parser.add_argument(
+        '--early-stopping-patience',
+        default=2,
+        type=int
+    )
+
+    args_parser.add_argument(
+        '--optimizer',
+        default='RMSprop',
+        help='See more about optimizers in https://keras.io/optimizers/'
+    )
+
+    args_parser.add_argument(
+        '--optimizer_params',
+        default='{"lr":0.001}',
+        help='JSON DATA, See more about optimizers in https://keras.io/optimizers/'
+    )
+
+    args_parser.add_argument(
+        '--layers',
+        default='[{"class_name": "Dense", "params": {"units": 10, "activation":"relu"}}, {"class_name": "Dropout", "params":{"rate":0.1}}]',
+        help='JSON DATA.'
+    )
+
+    args_parser.add_argument(
+        '--metrics',
+        default='acc,mse',
+        help='ex.: acc,mse'
     )
 
     return Arguments(args_parser.parse_args())
