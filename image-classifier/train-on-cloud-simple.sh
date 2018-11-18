@@ -3,7 +3,7 @@
 echo "Submitting a Cloud ML Engine job..."
 
 REGION="us-central1"
-MODEL_NAME="ImageClassifier" # change to your model name
+MODEL_NAME="ImageClassifierSimple" # change to your model name
 
 CURRENT_DATE=`date +%Y%m%d_%H%M%S`
 EPOCHS=100
@@ -11,7 +11,7 @@ BATCH_SIZE=16
 
 LOSS=categorical_crossentropy
 
-BASE_PATH=gs://bigdata-allanbatista-com-br/image-classifier/20181118_165025/
+BASE_PATH=gs://bigdata-allanbatista-com-br/image-classifier-simple/20181118_164727/
 BUCKET_NAME=bigdata-allanbatista-com-br
 TRAIN_PATH=${BASE_PATH}/train/${CURRENT_DATE}/
 
@@ -23,7 +23,7 @@ gcloud ml-engine jobs submit training ${JOB_NAME} \
         --job-dir=${JOB_DIR} \
         --runtime-version=1.10 \
         --region=${REGION} \
-        --module-name=image-classifier.train \
+        --module-name=image-classifier.train_simple \
         --package-path=image-classifier  \
         -- \
         --bucket-name=${BUCKET_NAME} \

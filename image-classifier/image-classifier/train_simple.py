@@ -7,12 +7,12 @@ from datetime import datetime as df
 
 import tensorflow as tf
 from tensorflow.keras import models, layers, optimizers
+from tensorflow.python.lib.io import file_io
 from tensorflow.keras.applications import VGG16
 
 import output
-import dataset
+import dataset_simple as dataset
 from parameters import initialise_hyper_params
-from tensorflow.python.lib.io import file_io
 
 
 def run(params):
@@ -21,11 +21,13 @@ def run(params):
 
     trainset = dataset.create_dataset_form_pattern(params.bucket_name,
                                                    params.trainset_path,
-                                                   batch_size=params.batch_size)
+                                                   batch_size=params.batch_size,
+                                                   epochs=params.epochs)
 
     testset  = dataset.create_dataset_form_pattern(params.bucket_name,
                                                    params.testset_path,
-                                                   batch_size=params.batch_size)
+                                                   batch_size=params.batch_size,
+                                                   epochs=params.epochs)
 
     vgg_conv = VGG16(weights='imagenet', include_top=False, input_shape=(256, 256, 3))
 
@@ -36,26 +38,41 @@ def run(params):
     # Create a Model
     model = models.Sequential()
     model.add(vgg_conv)
-    model.add(layers.Dropout(0.1))
-    model.add(layers.Dense(10, activation='relu', input_dim=metadata['input_dimention']))
+    model.add(layers.Flatten())
+
+    print(params.layers)
+    for layer_data in params.layers:
+        data = layer_data['params']
+
+        model.add(getattr(layers, layer_data['class_name'])(**data))
+
     model.add(layers.Dense(metadata['classes_count'], activation='softmax'))
 
-    model.compile(optimizer=optimizers.RMSprop(lr=2e-4),
-                  loss=params.loss,
-                  metrics=['acc', 'mse'])
+    compile_data = {
+        'optimizer': getattr(optimizers, params.optimizer)(**params.optimizer_params),
+        'loss': params.loss,
+        'metrics': params.metrics
+    }
+
+    print(compile_data)
+    model.compile(**compile_data)
 
     model.fit(trainset,
                 epochs=params.epochs,
-                steps_per_epoch= 100 // 16, #metadata['train_samples_count'] // params.batch_size,
-                # validation_data=testset,
-                # validation_steps=metadata['test_samples_count'] // params.batch_size,
+                verbose=1,
+                steps_per_epoch=metadata['train_samples_count'] // params.batch_size,
+                validation_data=testset,
+                validation_steps=metadata['test_samples_count'] // params.batch_size,
                 callbacks=[
                     tf.keras.callbacks.TensorBoard(log_dir=params.tensorboards_path,
-                                                   batch_size= 100 // 16, #params.batch_size,
+                                                   batch_size=params.batch_size,
                                                    write_graph=True,
                                                    write_grads=True,
                                                    write_images=True),
-                    tf.keras.callbacks.EarlyStopping(monitor='loss', min_delta=0.01, verbose=1, patience=2)
+                    tf.keras.callbacks.EarlyStopping(monitor=params.early_stopping_monitor,
+                                                     min_delta=params.early_stopping_delta,
+                                                     verbose=params.early_stopping_verbose,
+                                                     patience=params.early_stopping_patience)
                 ])
 
     print("Saving Model")
@@ -63,11 +80,6 @@ def run(params):
 
 
 def main():
-
-    print('')
-    print('Hyper-parameters:')
-    print(HYPER_PARAMS)
-    print('')
 
     print("$ tensorboard --port 8080 --logdir {}".format(HYPER_PARAMS.tensorboards_path))
 

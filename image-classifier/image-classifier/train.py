@@ -21,11 +21,13 @@ def run(params):
 
     trainset = dataset.create_dataset_form_pattern(params.bucket_name,
                                                    params.trainset_path,
-                                                   batch_size=params.batch_size)
+                                                   batch_size=params.batch_size,
+                                                   epochs=params.epochs)
 
     testset  = dataset.create_dataset_form_pattern(params.bucket_name,
                                                    params.testset_path,
-                                                   batch_size=params.batch_size)
+                                                   batch_size=params.batch_size,
+                                                   epochs=params.epochs)
 
     # # Create a Model
     model = models.Sequential()
@@ -54,6 +56,7 @@ def run(params):
 
     model.fit(trainset,
                 epochs=params.epochs,
+                verbose=1,
                 steps_per_epoch=metadata['train_samples_count'] // params.batch_size,
                 validation_data=testset,
                 validation_steps=metadata['test_samples_count'] // params.batch_size,
@@ -74,11 +77,6 @@ def run(params):
 
 
 def main():
-
-    print('')
-    print('Hyper-parameters:')
-    print(HYPER_PARAMS)
-    print('')
 
     print("$ tensorboard --port 8080 --logdir {}".format(HYPER_PARAMS.tensorboards_path))
 

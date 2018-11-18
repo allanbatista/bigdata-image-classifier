@@ -15,7 +15,9 @@ def _parse_example(serialized_example):
 
     parsed = tf.parse_single_example(serialized_example, features=feature_set)
 
-    return tf.decode_raw(parsed['features'], tf.float32), parsed['label']
+    reshaped = tf.reshape(tf.decode_raw(parsed['features'], tf.float32), (256, 256, 3))
+
+    return reshaped, parsed['label']
 
 
 def create_dataset(files, batch_size=16, epochs=1):
