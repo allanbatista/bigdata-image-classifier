@@ -43,7 +43,7 @@ def run(params):
 
         model.add(getattr(layers, layer_data['class_name'])(**data))
 
-    model.add(layers.Dense(metadata['classes_count'], activation='softmax'))
+    model.add(layers.Dense(metadata['classes_count'], activation=params.activation)) #'softmax'
 
 
     compile_data = {
@@ -51,6 +51,7 @@ def run(params):
         'loss': params.loss,
         'metrics': params.metrics
     }
+
     print(compile_data)
     model.compile(**compile_data)
 
@@ -65,11 +66,12 @@ def run(params):
                                                    batch_size=params.batch_size,
                                                    write_graph=True,
                                                    write_grads=True,
-                                                   write_images=True),
-                    tf.keras.callbacks.EarlyStopping(monitor=params.early_stopping_monitor,
-                                                     min_delta=params.early_stopping_delta,
-                                                     verbose=params.early_stopping_verbose,
-                                                     patience=params.early_stopping_patience)
+                                                   write_images=True)
+                    #,
+                    # tf.keras.callbacks.EarlyStopping(monitor=params.early_stopping_monitor,
+                    #                                  min_delta=params.early_stopping_delta,
+                    #                                  verbose=params.early_stopping_verbose,
+                    #                                  patience=params.early_stopping_patience)
                 ])
 
     print("Saving Model")

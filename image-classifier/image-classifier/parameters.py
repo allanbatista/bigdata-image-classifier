@@ -95,6 +95,10 @@ class Arguments():
     def metrics(self):
         return self.params.metrics.split(",")
 
+    @property
+    def activation(self):
+        return self.params.activation
+
 
 def initialise_hyper_params(args_parser):
     args_parser.add_argument(
@@ -209,6 +213,11 @@ def initialise_hyper_params(args_parser):
         '--metrics',
         default='acc,mse',
         help='ex.: acc,mse'
+    )
+
+    args_parser.add_argument(
+        '--activation',
+        default='softmax'
     )
 
     return Arguments(args_parser.parse_args())
