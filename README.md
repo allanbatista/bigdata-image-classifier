@@ -1,36 +1,16 @@
-# Classificação de Imagens de Flores - Aplicandod Modelos pré-treinados de redes neurais convolucionais
+# Classificação de Imagens
 
-Desc
+Este repositório contem todo o código utilizado no projeto de bloco B do curso de pós graduação da Infnet em Big Data.
 
-## Cronograma
+Todo código aqui contido possui todos os jupyter notebooks e modulo python para o treinamento dos modelos.
 
-**Geração do código**
+## Notebooks
 
-    1.a Código Atual para treinar no GCP (treinar com todo o dataset) 11-11-2018
-    1.b Generalizar para os experimentos 16-11-2018
-    1.c Criar métricas (f1 score, acurracia e matrix de confusão) 18-11-2018
+Os notebooks são usados com função de fazer o pré-processamento das imagens para o formato dos modelos de redes pré-treinadas e a avaliação dos modelos gerando seu f1-score e matriz de confusão.
 
-**Geração da documentação**
-
-    2.a Criar esqueleto da documentação 16-11-2018
-    2.b Popular com metodologia e resultados
-
-**Geração da apresentação**
-
-    3.a Demonstração no Jupyter com o Modelo persistido - 21-11-2018
-    3.b Criar esqueleto da Apresentação - 20-11-2018
-    3.c Criar popular com os resultados Apresentação - 23-11-2018
-
-### Experimentos
-
-1. Alterações nas Layers de Classficação
-* neurônios: 256, 512 e 1024
-* activation: relu, sigmoid e tanh
- 
-2. Alteração no Optimizer
-* optimizers: RMSprop, Adam e SGD
-* loss: categorical_crossentropy, categorical_hinge
-
-## Próximos encontros
-
-18-11-2018 (domingo)
+* notebooks/preprocessing.ipynb VGG16
+* notebooks/preprocessing-vgg19.ipynb VGG19
+* notebooks/preprocessing-resnet50.ipynb ResNet50
+* notebooks/preprocessing-inceptionv3.ipynb InceptionV3
+* notebooks/preprocessing-NASNetLarge.ipynb NasNetLarge
+* notebooks/preprocessing-simple.ipynb Treinamento de camadas de feature extraction
