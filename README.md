@@ -29,35 +29,30 @@ O código desenvolvido para o processo de treinamento e validação pode ser reu
 
 Os seguintes parâmetros devem ser modificados/atualizados/conferidos antes de inicar um novo treinamento:
 
-REGION= #região em que a instância de processamento está lcoalizada no GCP (string)
-
-MODEL_NAME= #nome arbitrário do modelo (string)
-
-EPOCHS= #quantidade de épocas de treinamento (int)
-
-BATCH_SIZE= #tamanho do batch de treinamento (int)
-
-LAYERS= #camadas completamente conectadas a serem construídas no modelo (json)
-  exemplo: "[{\"class_name\":\"Dense\",\"params\":{\"units\":256,\"activation\":\"sigmoid\"}},{\"class_name\":\"Dropout\",\"params\":{\"rate\":0.5}}]"
-
-BASE_PATH= #endereço de localização do dataset em tfrecords
-
-BUCKET_NAME= #nome do bucket no GCP
+    REGION= #região em que a instância de processamento está lcoalizada no GCP (string)
+    MODEL_NAME= #nome arbitrário do modelo (string)
+    EPOCHS= #quantidade de épocas de treinamento (int)
+    BATCH_SIZE= #tamanho do batch de treinamento (int)
+    LAYERS= #camadas completamente conectadas a serem construídas no modelo (json)
+      exemplo: "[{\"class_name\":\"Dense\",\"params\":{\"units\":256,\"activation\":\"sigmoid\"}},{\"class_name\":\"Dropout\",\"params\":{\"rate\":0.5}}]"
+    BASE_PATH= #endereço de localização do dataset em tfrecords
+    BUCKET_NAME= #nome do bucket no GCP
 
 O comando a seguir inicia o treinamento utilizando as variáveis definidas acima, e outras que também devem ser atualizadas:
-gcloud ml-engine jobs submit training ${JOB_NAME} \
-        --scale-tier=BASIC \
-        --job-dir=${JOB_DIR} \
-        --runtime-version=1.10 \
-        --region=${REGION} \
-        --module-name=image-classifier.train \
-        --package-path=image-classifier  \
-        -- \
-        --bucket-name=${BUCKET_NAME} \
-        --epochs=${EPOCHS} \
-        --batch-size=${BATCH_SIZE} \
-        --current-date=${CURRENT_DATE} \
-        --base-path=${BASE_PATH} \
-        --loss=categorical_hinge \
-        --layers=$LAYERS \
-        --activation=softmax
+
+    gcloud ml-engine jobs submit training ${JOB_NAME} \
+            --scale-tier=BASIC \
+            --job-dir=${JOB_DIR} \
+            --runtime-version=1.10 \
+            --region=${REGION} \
+            --module-name=image-classifier.train \
+            --package-path=image-classifier  \
+            -- \
+            --bucket-name=${BUCKET_NAME} \
+            --epochs=${EPOCHS} \
+            --batch-size=${BATCH_SIZE} \
+            --current-date=${CURRENT_DATE} \
+            --base-path=${BASE_PATH} \
+            --loss=categorical_hinge \
+            --layers=$LAYERS \
+            --activation=softmax
